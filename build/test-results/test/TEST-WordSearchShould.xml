@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="WordSearchShould" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-01-09T15:07:32" hostname="admins-MBP.office" time="0.236">
+  <properties/>
+  <testcase name="work_with_one_row_and_one_letter_horizontally" classname="WordSearchShould" time="0.236"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
