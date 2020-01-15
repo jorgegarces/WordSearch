@@ -34,19 +34,15 @@ public class WordSearch {
     private void diagonalLeftToRightDown(String currentWord, int i, int j) {
         int counter = 0;
         for (int k = i, l = j; counter < currentWord.length(); k++, l++) {
-            if (board[k][l] != currentWord.charAt(counter)) break;
-            if (board[k][l] == currentWord.charAt(counter)) counter++;
-            if (l == board[k].length -1) l = -1;
-            if (k == board.length -1) k = -1;
-
-
+            if (board[Math.floorMod(k, board.length)][Math.floorMod(l, board[0].length)] != currentWord.charAt(counter)) break;
+            if (board[Math.floorMod(k, board.length)][Math.floorMod(l, board[0].length)] == currentWord.charAt(counter)) counter++;
         }
+
         if (counter == currentWord.length()) {
             counter = 0;
             for (int k = i, l = j; counter < currentWord.length(); k++, l++, counter++) {
-                board[k][l] = Character.toUpperCase(board[k][l]);
-                if (l == board[k].length -1) l = -1;
-                if (k == board.length -1) k = -1;
+                board[Math.floorMod(k, board.length)][Math.floorMod(l, board[0].length)] = Character.toUpperCase(board[Math.floorMod(k, board.length)][Math.floorMod(l, board[0].length)]);
+
             }
         }
     }
@@ -54,18 +50,13 @@ public class WordSearch {
     private void horizontalLeftToRight(String currentWord, int i, int j) {
         int counter = 0;
         for (int k = i, l = j; counter < currentWord.length(); l++) {
-            if (board[k][l] != currentWord.charAt(counter)) break;
-            if (board[k][l] == currentWord.charAt(counter)) counter++;
-            if (l == board[k].length -1) l = -1;
-            if (k == board.length -1) k = -1;
-
+            if (board[Math.floorMod(k, board.length)][Math.floorMod(l, board[0].length)] != currentWord.charAt(counter)) break;
+            if (board[Math.floorMod(k, board.length)][Math.floorMod(l, board[0].length)] == currentWord.charAt(counter)) counter++;
         }
         if (counter == currentWord.length()) {
             counter = 0;
             for (int k = i, l = j; counter < currentWord.length(); l++, counter++) {
-                board[k][l] = Character.toUpperCase(board[k][l]);
-                if (l == board[k].length -1) l = -1;
-                if (k == board.length -1) k = -1;
+                board[Math.floorMod(k, board.length)][Math.floorMod(l, board[0].length)] = Character.toUpperCase(board[Math.floorMod(k, board.length)][Math.floorMod(l, board[0].length)]);
             }
         }
     }
