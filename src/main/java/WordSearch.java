@@ -15,42 +15,55 @@ public class WordSearch {
         for (String currentWord : wordArray) {
             board = traverseMatrix(currentWord);
         }
-
         return board;
     }
 
     private char[][] traverseMatrix(String currentWord) {
 
-        Function<Integer, Integer> increment = x  -> x + 1;
-        Function<Integer, Integer> decrement = x -> x - 1;
-        Function<Integer, Integer> keepValue = x -> x;
-
         for (int i = 0; i < board.length; i++)
             for (int j = 0; j < board[i].length; j++)
                 if (Character.toLowerCase(board[i][j]) == currentWord.charAt(0)) {
-                    upperCaseIfFound(currentWord, i, j, keepValue, increment); // horizontal LR
-                    upperCaseIfFound(currentWord, i, j, keepValue, decrement); // horizontal Reverse
-                    upperCaseIfFound(currentWord, i, j, increment, keepValue); // vertical
-                    upperCaseIfFound(currentWord, i, j, decrement, keepValue); // vertical Reverse
-                    upperCaseIfFound(currentWord, i, j, increment, increment); // diagonal LRD
-                    upperCaseIfFound(currentWord, i, j, increment, decrement); // diagonal RLD
-                    upperCaseIfFound(currentWord, i, j, decrement, decrement); // diagonal RLU
-                    upperCaseIfFound(currentWord, i, j, decrement, increment); // diagonal LRU
+                    for (Move move : Move.values()) {
+                        upperCaseIfFound(currentWord, i, j, move);
+                    }
                 }
-
         return board;
     }
 
-    private void upperCaseIfFound(String currentWord, int i, int j, Function<Integer, Integer> moveK, Function<Integer, Integer> moveL) {
+    static Function<Integer, Integer> increment = x -> x + 1;
+    static Function<Integer, Integer> decrement = x -> x - 1;
+    static Function<Integer, Integer> keepValue = x -> x;
+
+    private enum Move {
+        HORIZONTALLR(keepValue, increment),
+        HORIZONTALRL(keepValue, decrement),
+        VERTICALUD(increment, keepValue),
+        VERTICALDU(decrement, keepValue),
+        DIAGONALLRD(increment, increment),
+        DIAGONALRLD(increment, decrement),
+        DIAGONALLRU(decrement, increment),
+        DIAGONALRLU(decrement, decrement);
+
+        private Function<Integer, Integer> horizontal;
+        private Function<Integer, Integer> vertical;
+
+        Move(Function<Integer, Integer> horizontal, Function<Integer, Integer> vertical) {
+            this.horizontal = horizontal;
+            this.vertical = vertical;
+        }
+    }
+
+    private void upperCaseIfFound(String currentWord, int i, int j, Move move) {
         int counter = 0;
-        for (int k = i, l = j; counter < currentWord.length(); k = moveK.apply(k), l = moveL.apply(l), counter++) {
-            if (Character.toLowerCase(board[Math.floorMod(k, board.length)][Math.floorMod(l, board[0].length)]) != currentWord.charAt(counter)) break;
+        for (int k = i, l = j; counter < currentWord.length(); k = move.horizontal.apply(k), l = move.vertical.apply(l), counter++) {
+            if (Character.toLowerCase(board[Math.floorMod(k, board.length)][Math.floorMod(l, board[0].length)]) != currentWord.charAt(counter))
+                break;
             if (counter > 0 && Math.floorMod(k, board.length) == i && Math.floorMod(l, board[0].length) == j) break;
         }
 
         if (counter == currentWord.length()) {
             counter = 0;
-            for (int k = i, l = j; counter < currentWord.length(); k = moveK.apply(k), l = moveL.apply(l), counter++) {
+            for (int k = i, l = j; counter < currentWord.length(); k = move.horizontal.apply(k), l = move.vertical.apply(l), counter++) {
                 board[Math.floorMod(k, board.length)][Math.floorMod(l, board[0].length)] = Character.toUpperCase(board[Math.floorMod(k, board.length)][Math.floorMod(l, board[0].length)]);
             }
         }

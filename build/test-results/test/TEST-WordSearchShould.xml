@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="WordSearchShould" tests="9" skipped="0" failures="0" errors="0" timestamp="2020-01-16T13:46:47" hostname="admins-MBP.office" time="0.011">
+<testsuite name="WordSearchShould" tests="9" skipped="0" failures="0" errors="0" timestamp="2020-01-17T11:55:36" hostname="admins-MBP.office" time="0.015">
   <properties/>
-  <testcase name="find_words_Diagonal_Right_to_Left_Down" classname="WordSearchShould" time="0.005"/>
-  <testcase name="find_words_In_Every_Direction" classname="WordSearchShould" time="0.001"/>
+  <testcase name="find_words_Diagonal_Right_to_Left_Down" classname="WordSearchShould" time="0.007"/>
+  <testcase name="find_words_In_Every_Direction" classname="WordSearchShould" time="0.0"/>
   <testcase name="find_words_Horizontal_Right_to_Left" classname="WordSearchShould" time="0.0"/>
   <testcase name="find_words_Horizontal_Left_to_Right" classname="WordSearchShould" time="0.0"/>
   <testcase name="find_words_vertically_reverse" classname="WordSearchShould" time="0.0"/>
-  <testcase name="find_words_Diagonal_Left_to_Rigth_Up" classname="WordSearchShould" time="0.0"/>
-  <testcase name="find_words_Diagonal_Left_to_Right_Down" classname="WordSearchShould" time="0.001"/>
+  <testcase name="find_words_Diagonal_Left_to_Rigth_Up" classname="WordSearchShould" time="0.001"/>
+  <testcase name="find_words_Diagonal_Left_to_Right_Down" classname="WordSearchShould" time="0.0"/>
   <testcase name="find_words_Diagonal_Right_to_Left_Up" classname="WordSearchShould" time="0.0"/>
   <testcase name="find_words_vertically_up_to_down" classname="WordSearchShould" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
