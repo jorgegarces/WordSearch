@@ -21,26 +21,31 @@ public class WordSearch {
 
     private char[][] traverseMatrix(String currentWord) {
 
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                if (board[i][j] == currentWord.charAt(0)) {
-                    Function<Integer, Integer> increment = x  -> x + 1;
-                    Function<Integer, Integer> decrement = x -> x - 1;
-                    Function<Integer, Integer> keepvalue = x -> x;
-                    checkMatchesAndUppercase(currentWord, i, j, increment, increment); // diagonal LRD
-                    checkMatchesAndUppercase(currentWord, i, j, keepvalue, increment); // horizontal LR
+        Function<Integer, Integer> increment = x  -> x + 1;
+        Function<Integer, Integer> decrement = x -> x - 1;
+        Function<Integer, Integer> keepValue = x -> x;
+
+        for (int i = 0; i < board.length; i++)
+            for (int j = 0; j < board[i].length; j++)
+                if (Character.toLowerCase(board[i][j]) == currentWord.charAt(0)) {
+                    upperCaseIfFound(currentWord, i, j, keepValue, increment); // horizontal LR
+                    upperCaseIfFound(currentWord, i, j, keepValue, decrement); // horizontal Reverse
+                    upperCaseIfFound(currentWord, i, j, increment, keepValue); // vertical
+                    upperCaseIfFound(currentWord, i, j, decrement, keepValue); // vertical Reverse
+                    upperCaseIfFound(currentWord, i, j, increment, increment); // diagonal LRD
+                    upperCaseIfFound(currentWord, i, j, increment, decrement); // diagonal RLD
+                    upperCaseIfFound(currentWord, i, j, decrement, decrement); // diagonal RLU
+                    upperCaseIfFound(currentWord, i, j, decrement, increment); // diagonal LRU
                 }
-            }
-        }
 
         return board;
     }
 
-    private void checkMatchesAndUppercase(String currentWord, int i, int j, Function<Integer, Integer> moveK, Function<Integer, Integer> moveL) {
+    private void upperCaseIfFound(String currentWord, int i, int j, Function<Integer, Integer> moveK, Function<Integer, Integer> moveL) {
         int counter = 0;
-        for (int k = i, l = j; counter < currentWord.length(); k = moveK.apply(k), l = moveL.apply(l)) {
-            if (board[Math.floorMod(k, board.length)][Math.floorMod(l, board[0].length)] != currentWord.charAt(counter)) break;
-            if (board[Math.floorMod(k, board.length)][Math.floorMod(l, board[0].length)] == currentWord.charAt(counter)) counter++;
+        for (int k = i, l = j; counter < currentWord.length(); k = moveK.apply(k), l = moveL.apply(l), counter++) {
+            if (Character.toLowerCase(board[Math.floorMod(k, board.length)][Math.floorMod(l, board[0].length)]) != currentWord.charAt(counter)) break;
+            if (counter > 0 && Math.floorMod(k, board.length) == i && Math.floorMod(l, board[0].length) == j) break;
         }
 
         if (counter == currentWord.length()) {
